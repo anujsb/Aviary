@@ -2,7 +2,7 @@ import React from "react";
 
 const Video = () => {
   return (
-    <div>
+    <div id="video">
       {/* <div className="md:w-[1130px] lg:w-[1130px] sm:w-[375px] md:h-[600px] lg:h-[600px] sm:h-[600px] rounded-xl mt-10 z-50">
         <iframe
         //   src="https://www.loom.com/embed/b9ec564cd4d04a6d985c077088794fe6?sid=b6dbae93-f413-4b83-b684-c353fd11ace4"
@@ -11,16 +11,16 @@ const Video = () => {
           className="w-full h-full rounded-xl"
         ></iframe>
       </div> */}
-      <video width="1130" height="1240"  preload="" autoPlay loop>
-      <source src="/video.mp4" type="video/mp4" />
-      {/* <track
+      <video width="1130" height="1240" autoPlay loop muted>
+        <source src="/video.mp4" type="video/mp4" />
+        {/* <track
         src="/path/to/captions.vtt"
         kind="subtitles"
         srcLang="en"
         label="English"
       /> */}
-      Your browser does not support the video tag.
-    </video>
+        Your browser does not support the video tag.
+      </video>
     </div>
   );
 };

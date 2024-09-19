@@ -2,16 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
+/* :root {
+  --background: #fafafa;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #ededed;
+    --background: #fafafa;
+    --foreground: #222222;
   }
+} */
+
+* {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -90,3 +94,48 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* features */
+
+.brain {
+  background-image: url("/DevTools.svg");
+  background-size: cover;
+  background-position: center;
+}
+
+
+/* testi */
+@keyframes slide-forward {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slide-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-infinite-slider-forward {
+  animation: slide-forward 30s linear infinite;
+  width: 200%; /* Double the width to accommodate two sets of items */
+}
+
+.animate-infinite-slider-reverse {
+  animation: slide-reverse 30s linear infinite;
+  width: 200%; /* Double the width to accommodate two sets of items */
+}
+
+.animate-infinite-slider-forward:hover,
+.animate-infinite-slider-reverse:hover {
+  animation-play-state: paused;
+}
+
+

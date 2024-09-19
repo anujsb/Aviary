@@ -5,11 +5,10 @@ import { FloatingNav } from "./ui/floating-navbar";
 export function FloatingNavDemo() {
   const navItems = [
     { name: "Home", link: "/" },
-    { name: "Features", link: "/#video" },
-    { name: "Pricing", link: "/#pricing" },
-    { name: "Documentation", link: "/documentation" },
-    { name: "Blog", link: "/#BlogPage" },
-    { name: "Security", link: "/#security" },
+    { name: "About", link: "/#video" },
+    { name: "Features", link: "/#features" },
+    { name: "Testimonials", link: "/#Testimonials" },
+    { name: "Contact", link: "/#Contact" },
   ];
 
   return (
