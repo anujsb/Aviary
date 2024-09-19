@@ -91,21 +91,7 @@ const Pattern: React.FC<{ className?: string; cellClassName?: string }> = ({
   const x = new Array(47).fill(0);
   const y = new Array(30).fill(0);
   const matrix = x.map((_, i) => y.map((_, j) => [i, j]));
-
-  // Moved useAnimation and useEffect hooks outside the loop
-  const controls = useAnimation();
-
-  useEffect(() => {
-    matrix.forEach((row, rowIdx) => {
-      row.forEach((_, colIdx) => {
-        const distance = Math.sqrt(Math.pow(rowIdx, 2) + Math.pow(colIdx, 2));
-        controls.start({
-          opacity: [0, 1 - distance * 0.1, 0],
-          transition: { duration: distance * 0.2 },
-        });
-      });
-    });
-  }, [controls, matrix]);
+  const [clickedCell, setClickedCell] = useState<[number, number] | null>(null);
 
   return (
     <div className={cn("flex flex-row relative z-30", className)}>
@@ -114,23 +100,41 @@ const Pattern: React.FC<{ className?: string; cellClassName?: string }> = ({
           key={`matrix-row-${rowIdx}`}
           className="flex flex-col relative z-20 border-b"
         >
-          {row.map((_, colIdx) => (
-            <div
-              key={`matrix-col-${colIdx}`}
-              className={cn(
-                "bg-transparent border-l border-b border-neutral-600",
-                cellClassName
-              )}
-            >
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: [0, 1, 0.5] }}
-                transition={{ duration: 0.5, ease: "backOut" }}
-                animate={controls}
-                className="bg-[#BEBEBE] h-9 w-9"
-              />
-            </div>
-          ))}
+          {row.map((_, colIdx) => {
+            const controls = useAnimation();
+
+            useEffect(() => {
+              if (clickedCell) {
+                const distance = Math.sqrt(
+                  Math.pow(clickedCell[0] - rowIdx, 2) +
+                    Math.pow(clickedCell[1] - colIdx, 2)
+                );
+                controls.start({
+                  opacity: [0, 1 - distance * 0.1, 0],
+                  transition: { duration: distance * 0.2 },
+                });
+              }
+            }, [clickedCell, rowIdx, colIdx, controls]);
+
+            return (
+              <div
+                key={`matrix-col-${colIdx}`}
+                className={cn(
+                  "bg-transparent border-l border-b border-neutral-600",
+                  cellClassName
+                )}
+                onClick={() => setClickedCell([rowIdx, colIdx])}
+              >
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: [0, 1, 0.5] }}
+                  transition={{ duration: 0.5, ease: "backOut" }}
+                  animate={controls}
+                  className="bg-[#BEBEBE] h-9 w-9"
+                />
+              </div>
+            );
+          })}
         </div>
       ))}
     </div>
